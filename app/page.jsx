@@ -1,0 +1,173 @@
+import CarCard from "@/components/car-card";
+import HomeSearch from "@/components/home-search";
+import { Button } from "@/components/ui/button";
+import { bodyTypes, carMakes, featuredCars } from "@/lib/data";
+import { Calendar, Car, ChevronRight, Shield } from "lucide-react";
+import Image from "next/image";
+import { Chevron } from "react-day-picker";
+import Link from "next/link";
+
+
+export default function Home() {
+  return (
+    <div className="pt-20 flex flex-col">
+      {/* Hero */}
+
+      <section className="relative py-16 md:py-28 dotted-background">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="mb-8">
+            <h1  className="text-5xl md:text-8xl mb-4 gradient-title">
+              Find your dream car with VehicleAI
+            </h1>
+            <p className="text-xl text-gray-500 mb-8 max-w-2xl mx-auto">
+              Advanced AI car Search tool for thousands of cars
+            </p>
+          </div>
+
+          {/* search */}
+          <HomeSearch/>
+        </div>
+      </section>
+
+    {/* next section */}
+
+      <section className="py-12">
+        <div  className="container mx-auto px-4">
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-2xl font-bold">Featured cars</h2>
+            <Button>
+                <Link href="/cars">
+                View All <ChevronRight className="ml-1 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featuredCars.map((car)=>{
+              return <CarCard key={car.id} car={car}/>
+            })}
+          </div>
+        </div>
+      </section>
+
+
+            {/* Browse by make */}
+      <section>
+        <div className="container mx-auto px-4">
+           <div className="flex justify-between items-center mb-8">
+            <h2 className="text-2xl font-bold">Browse by make</h2>
+            <Button>
+                <Link href="/makes">
+                View All <ChevronRight className="ml-1 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {carMakes.map((make) => (
+              <Link
+                key={make.name}
+                href={`/cars?make=${make.name}`}
+                className="bg-white rounded-lg shadow p-4 text-center hover:shadow-md transition cursor-pointer"
+              >
+                <div className="h-16 w-auto mx-auto mb-2 relative">
+                  <Image
+                    src={
+                      make.imageUrl || `/make/${make.name.toLowerCase()}.webp`
+                    }
+                    alt={make.name}
+                    fill
+                    style={{ objectFit: "contain" }}
+                  />
+                </div>
+                <h3 className="font-medium">{make.name}</h3>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+        {/* why choose us  */}
+      <section className="py-10">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl font-bold text-center mb-12">
+            Why choose our platform
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="bg-blue-100 text-blue-700 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+              <Car className="h-8 w-8"/>
+
+              </div>
+              <h3 className="text-xl font-bold mb-2">
+                Wide collections
+              </h3>
+              <p className="text-gray-600">   Thousands of verified vehicles from trusted dealerships and
+                private sellers.</p>
+            </div>
+
+
+            <div className="text-center">
+              <div className="bg-blue-100 text-blue-700 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <Calendar className="h-8 w-8" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Easy Test Drive</h3>
+              <p className="text-gray-600">
+                Book a test drive online in minutes, with flexible scheduling
+                options.
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="bg-blue-100 text-blue-700 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <Shield className="h-8 w-8" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Secure Process</h3>
+              <p className="text-gray-600">
+                Verified listings and secure booking process for peace of mind.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      {/* browse by body */}
+
+      <section>
+        <div className="container mx-auto px-4">
+           <div className="flex justify-between items-center mb-8">
+            <h2 className="text-2xl font-bold">Browse by body</h2>
+            <Button>
+                <Link href="/makes">
+                View All <ChevronRight className="ml-1 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {bodyTypes.map((body) => (
+              <Link
+                key={body.name}
+                href={`/cars?make=${body.name}`}
+                className="bg-white rounded-lg shadow p-4 text-center hover:shadow-md transition cursor-pointer"
+              >
+                <div className="h-16 w-auto mx-auto mb-2 relative">
+                  <Image
+                    src={
+                      body.imageUrl || `/body/${body.name.toLowerCase()}.webp`
+                    }
+                    alt={body.name}
+                    fill
+                    style={{ objectFit: "contain" }}
+                  />
+                </div>
+                <h3 className="font-medium">{body.name}</h3>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+    </div>
+  );
+}
