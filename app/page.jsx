@@ -129,11 +129,9 @@ export default function Home() {
             </div>
           </div>
         </div>
-
       </section>
 
       {/* browse by body */}
-
       <section>
         <div className="container mx-auto px-4">
            <div className="flex justify-between items-center mb-8">
